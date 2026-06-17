@@ -1,0 +1,39 @@
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+public class BirthDateAnalyzer {
+    public static void main(String[] args) {
+        // 1. Получение текущей даты
+        LocalDate currentDate = LocalDate.now();
+
+        // 2. Создание даты рождения (15 марта 1995 года)
+        LocalDate birthDate = LocalDate.of(1995, 3, 15);
+
+        // Формат вывода дат в формате dd.MM.yyyy
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        // 3. Расчёт возраста в годах
+        Period agePeriod = Period.between(birthDate, currentDate);
+        int age = agePeriod.getYears();
+
+        // 4. Расчёт дней до следующего дня рождения
+        LocalDate nextBirthday = birthDate.withYear(currentDate.getYear());
+
+        // Если день рождения в этом году уже прошёл, берём следующий год
+        if (nextBirthday.isBefore(currentDate) || nextBirthday.isEqual(currentDate)) {
+            nextBirthday = nextBirthday.plusYears(1);
+        }
+
+        // Рассчитываем количество дней между текущей датой и следующим днём рождения
+        long daysUntilNextBirthday = java.time.temporal.ChronoUnit.DAYS.between(currentDate, nextBirthday);
+
+        // 5. Вывод всех данных в формате dd.MM.yyyy
+        System.out.println("Анализ даты рождения:");
+        System.out.println("Текущая дата: " + currentDate.format(formatter));
+        System.out.println("Дата рождения: " + birthDate.format(formatter));
+        System.out.println("Возраст: " + age + " лет");
+        System.out.println("Следующий день рождения: " + nextBirthday.format(formatter));
+        System.out.println("Дней до следующего дня рождения: " + daysUntilNextBirthday);
+    }
+}
