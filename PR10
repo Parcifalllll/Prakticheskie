@@ -1,0 +1,37 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
+public class StudentListManager {
+    public static void main(String[] args) {
+        // 1. Создание списка имён студентов
+        List<String> students = Arrays.asList(
+            ("Анна Иванова", "Пётр Сидоров", "Мария Козлова", "Иван Петров", "Елена Смирнова");
+
+        String filename = "students.txt";
+
+        // 2. Запись списка в файл students.txt
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (String student : students) {
+                writer.write(student + "\n"); // Каждое имя с новой строки
+            }
+            System.out.println("Список студентов успешно записан в файл " + filename);
+        } catch (IOException e) {
+            System.err.println("Ошибка при записи в файл: " + e.getMessage());
+        }
+
+        // 3. Чтение файла и вывод всех имён на экран
+        try {
+            List<String> loadedStudents = Files.readAllLines(Paths.get(filename));
+            System.out.println("\nСписок студентов, загруженных из файла:");
+            for (int i = 0; i < loadedStudents.size(); i++) {
+                System.out.println((i + 1) + ". " + loadedStudents.get(i));
+            }
+        } catch (IOException e) {
+            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+        }
+    }
+}
