@@ -1,0 +1,25 @@
+public class StudentInfo {
+    public static void main(String[] args) {
+        // 1. Объявление переменных разных типов
+        String name;      // строка — для имени студента
+        int age;        // целое число — для возраста
+        double gpa;     // дробное число — средний балл по географии
+        boolean isStudent; // логическое значение — студент или нет
+        char grade;      // символ — буквенная оценка (например, 'A', 'B')
+
+        // 2. Присвоение значений переменным
+        name = "Анна Иванова";
+        age = 20;
+        gpa = 4.75;
+        isStudent = true;
+        grade = 'A';
+
+        // 3. Вывод всей информации на экран
+        System.out.println("=== Информация о студенте ===");
+        System.out.println("Имя: " + name);
+        System.out.println("Возраст: " + age + " лет");
+        System.out.println("Средний балл по географии: " + gpa);
+        System.out.println("Является студентом: " + (isStudent ? "Да" : "Нет"));
+        System.out.println("Буквенная оценка: " + grade);
+    }
+}
