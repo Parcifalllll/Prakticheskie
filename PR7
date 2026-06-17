@@ -1,0 +1,71 @@
+// 1. Абстрактный суперкласс Vehicle
+abstract class Vehicle {
+    protected String brand;
+    protected int year;
+
+    // Конструктор для инициализации полей
+    public Vehicle(String brand, int year) {
+        this.brand = brand;
+        this.year = year;
+    }
+
+    // Метод start() согласно требованиям
+    public void start() {
+        System.out.println("Транспортное средство заведено");
+    }
+}
+
+// 2. Подкласс Car, наследующий Vehicle
+class Car extends Vehicle {
+    private int numberOfDoors;
+
+    // Конструктор с инициализацией всех полей
+    public Car(String brand, int year, int numberOfDoors) {
+        super(brand, year);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    // Геттер для приватного поля
+    public int getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    // Сеттер для приватного поля
+    public void setNumberOfDoors(int numberOfDoors) {
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    // 2C. Переопределение метода start()
+    @Override
+    public void start() {
+        System.out.println("Автомобиль " + brand + " заведён");
+    }
+}
+
+// 3. Подкласс Motorcycle, наследующий Vehicle
+class Motorcycle extends Vehicle {
+
+    // Конструктор
+    public Motorcycle(String brand, int year) {
+        super(brand, year);
+    }
+
+    // 3B. Переопределение метода start()
+    @Override
+    public void start() {
+        System.out.println("Мотоцикл " + brand + " заведён");
+    }
+}
+
+// Класс с методом main для демонстрации работы
+public class Main {
+    public static void main(String[] args) {
+        // 4. Создание объектов Car и Motorcycle
+        Car car = new Car("Toyota", 2022, 4);
+        Motorcycle motorcycle = new Motorcycle("Honda", 2023);
+
+        // Вызов метода start() для каждого объекта
+        car.start();
+        motorcycle.start();
+    }
+}
