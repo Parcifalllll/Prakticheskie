@@ -1,0 +1,44 @@
+public class ArrayStatistics {
+    public static void main(String[] args) {
+        // I. Создание массива из 5 целых чисел
+        int[] numbers = {10, 25, 7, 42, 18};
+
+        // II. Вывод всех элементов массива
+        System.out.println("Элементы массива:");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.print(numbers[i] + " ");
+        }
+        System.out.println(); // Переход на новую строку
+
+        // III. Нахождение суммы всех элементов
+        int sum = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            sum += numbers[i];
+        }
+        System.out.println("Сумма всех элементов: " + sum);
+
+        // IV. Нахождение максимального значения
+        int max = numbers[0]; // Предполагаем, что первый элемент — максимальный
+        for (int i = 1; i < numbers.length; i++) { // Начинаем с 1, т.к. 0 уже взят за основу
+            if (numbers[i] > max) {
+                max = numbers[i];
+            }
+        }
+        System.out.println("Максимальное значение: " + max);
+
+        // V. Проверка наличия числа 42 в массиве
+        boolean contains42 = false;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == 42) {
+                contains42 = true;
+                break; // Выходим из цикла, как только нашли число
+            }
+        }
+
+        if (contains42) {
+            System.out.println("Массив содержит число 42.");
+        } else {
+            System.out.println("Массив не содержит число 42.");
+        }
+    }
+}
