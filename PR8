@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class TodoList {
+    public static void main(String[] args) {
+        // 1. Создание ArrayList<String> для хранения задач
+        ArrayList<String> tasks = new ArrayList<>();
+
+        // 2. Добавление в список 3 задач
+        tasks.add("Купить продукты");
+        tasks.add("Подготовить отчёт");
+        tasks.add("Позвонить клиенту");
+
+        // 3. Вывод всех задач на экран
+        System.out.println("Текущий список задач:");
+        printTasks(tasks);
+
+        // 4. Удаление второй задачи (индекс 1, так как индексация начинается с 0)
+        if (tasks.size() > 1) {
+            String removedTask = tasks.remove(1);
+            System.out.println("\nУдалена задача: " + removedTask);
+        } else {
+            System.out.println("\nВ списке недостаточно задач для удаления второй задачи.");
+        }
+
+        // Вывод списка после удаления
+        System.out.println("Список задач после удаления:");
+        printTasks(tasks);
+
+        // 5. Проверка наличия конкретной задачи в списке
+        String targetTask = "Подготовить отчёт";
+        boolean containsTask = tasks.contains(targetTask);
+
+        System.out.println("\nПроверка наличия задачи \"" + targetTask + "\":");
+        if (containsTask) {
+            System.out.println("Задача найдена в списке.");
+        } else {
+            System.out.println("Задача не найдена в списке.");
+        }
+
+        // Добавление задачи обратно для демонстрации сортировки
+        tasks.add(targetTask);
+        System.out.println("\nДобавлена задача \"" + targetTask + "\" для демонстрации сортировки.");
+
+        // 6. Сортировка списка по алфавиту
+        Collections.sort(tasks);
+        System.out.println("\nСписок задач после сортировки по алфавиту:");
+        printTasks(tasks);
+    }
+
+    // Вспомогательный метод для вывода всех задач с нумерацией
+    private static void printTasks(ArrayList<String> taskList) {
+        if (taskList.isEmpty()) {
+            System.out.println("Список задач пуст.");
+            return;
+        }
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+    }
+}
