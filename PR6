@@ -1,0 +1,85 @@
+public class Book {
+    // 1. Приватные поля класса
+    private String title;
+    private String author;
+    private int year;
+
+    // 2. Конструктор, инициализирующий все поля
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    // 3. Геттеры
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    // Сеттеры
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    // 4. Метод для вывода информации о книге
+    public void displayInfo() {
+        System.out.println("Название: " + title);
+        System.out.println("Автор: " + author);
+        System.out.println("Год издания: " + year);
+        System.out.println("------------------------");
+    }
+}
+
+// Класс с методом main для демонстрации работы
+public class Main {
+    public static void main(String[] args) {
+        // 5. Создание двух объектов класса Book
+
+        // Первый объект через конструктор
+        Book book1 = new Book("Мастер и Маргарита", "Михаил Булгаков", 1966);
+
+        // Второй объект через конструктор
+        Book book2 = new Book("Преступление и наказание", "Фёдор Достоевский", 1866);
+
+        // Вызов метода displayInfo() для обоих объектов
+        System.out.println("Информация о книгах:");
+        book1.displayInfo();
+        book2.displayInfo();
+
+        // Демонстрация работы с геттерами и сеттерами
+        System.out.println("Демонстрация работы с геттерами и сеттерами:");
+
+        // Получаем текущее название первой книги
+        System.out.println("Старое название первой книги: " + book1.getTitle());
+
+        // Изменяем название первой книги с помощью сеттера
+        book1.setTitle("Мастер и Маргарита (новое издание)");
+
+        // Проверяем, что название изменилось
+        System.out.println("Новое название первой книги: " + book1.getTitle());
+
+        // Меняем год издания второй книги
+        book2.setYear(1867);
+        System.out.println("Новый год издания второй книги: " + book2.getYear());
+
+        System.out.println("\nОбновлённая информация о книгах:");
+        book1.displayInfo();
+        book2.displayInfo();
+    }
+}
