@@ -1,0 +1,173 @@
+import java.util.Random;
+import java.util.Arrays;
+
+public class ArrayPractice {
+    public static void main(String[] args) {
+        System.out.println("=== ПРАКТИКА №15-16: РАБОТА С МАССИВАМИ ===\n");
+        
+        // ==========================================
+        // ЗАДАНИЕ 1: Одномерный массив
+        // ==========================================
+        System.out.println("--- ЗАДАНИЕ 1: Одномерный массив ---");
+        task1OneDimensionalArray();
+        System.out.println();
+        
+        // ==========================================
+        // ЗАДАНИЕ 2: Двумерный массив (матрица)
+        // ==========================================
+        System.out.println("--- ЗАДАНИЕ 2: Двумерный массив (матрица) ---");
+        task2TwoDimensionalArray();
+        System.out.println();
+        
+        // ==========================================
+        // ЗАДАНИЕ 3 (Опционально): Треугольник Паскаля
+        // ==========================================
+        System.out.println("--- ЗАДАНИЕ 3 (Опционально): Треугольник Паскаля ---");
+        task3PascalTriangle();
+    }
+    
+    // ==========================================
+    // ЗАДАНИЕ 1: Одномерный массив
+    // ==========================================
+    public static void task1OneDimensionalArray() {
+        // 1. Создание массива случайных чисел
+        int size = 10;
+        int[] numbers = new int[size];
+        Random random = new Random();
+        
+        // Заполнение массива случайными числами от 0 до 99
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = random.nextInt(100);
+        }
+        
+        // Вывод массива
+        System.out.println("Создан массив чисел:");
+        System.out.println(Arrays.toString(numbers));
+        
+        // 2. Линейный поиск максимального и минимального элементов
+        int min = numbers[0];
+        int max = numbers[0];
+        int minIndex = 0;
+        int maxIndex = 0;
+        
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] < min) {
+                min = numbers[i];
+                minIndex = i;
+            }
+            if (numbers[i] > max) {
+                max = numbers[i];
+                maxIndex = i;
+            }
+        }
+        
+        System.out.println("\nРезультаты поиска:");
+        System.out.println("Минимальный элемент: " + min + " (индекс " + minIndex + ")");
+        System.out.println("Максимальный элемент: " + max + " (индекс " + maxIndex + ")");
+        
+        // Дополнительно: сумма всех элементов
+        int sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        System.out.println("Сумма всех элементов: " + sum);
+        System.out.println("Среднее арифметическое: " + (double) sum / numbers.length);
+    }
+    
+    // ==========================================
+    // ЗАДАНИЕ 2: Двумерный массив (матрица)
+    // ==========================================
+    public static void task2TwoDimensionalArray() {
+        // 1. Создание квадратной матрицы
+        int size = 5;
+        int[][] matrix = new int[size][size];
+        
+        // 2. Заполнение матрицы: главная диагональ = 1, остальное = 0
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (i == j) {
+                    matrix[i][j] = 1; // Главная диагональ
+                } else {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        // 3. Вывод матрицы
+        System.out.println("Квадратная матрица " + size + "x" + size + 
+                          " (единицы на главной диагонали):");
+        printMatrix(matrix);
+        
+        // 4. Дополнительно: вариант с единицами на обеих диагоналях
+        System.out.println("\nВариант: единицы на главной И побочной диагоналях:");
+        int[][] matrixBothDiagonals = new int[size][size];
+        for (int i = 0; i < matrixBothDiagonals.length; i++) {
+            for (int j = 0; j < matrixBothDiagonals[i].length; j++) {
+                if (i == j || j == matrixBothDiagonals.length - 1 - i) {
+                    matrixBothDiagonals[i][j] = 1;
+                } else {
+                    matrixBothDiagonals[i][j] = 0;
+                }
+            }
+        }
+        printMatrix(matrixBothDiagonals);
+    }
+    
+    // ==========================================
+    // ЗАДАНИЕ 3 (Опционально): Треугольник Паскаля
+    // ==========================================
+    public static void task3PascalTriangle() {
+        int rows = 7;
+        
+        // Создание ступенчатого массива (jagged array)
+        int[][] pascal = new int[rows][];
+        
+        // Заполнение треугольника Паскаля
+        for (int i = 0; i < rows; i++) {
+            // Каждая строка имеет длину i + 1
+            pascal[i] = new int[i + 1];
+            
+            // Первый и последний элемент каждой строки = 1
+            pascal[i][0] = 1;
+            pascal[i][i] = 1;
+            
+            // Заполнение внутренних элементов
+            for (int j = 1; j < i; j++) {
+                // Каждый элемент равен сумме двух элементов над ним
+                pascal[i][j] = pascal[i - 1][j - 1] + pascal[i - 1][j];
+            }
+        }
+        
+        // Вывод треугольника Паскаля (с форматированием)
+        System.out.println("Треугольник Паскаля (" + rows + " строк):");
+        for (int i = 0; i < pascal.length; i++) {
+            // Отступы для красивого вывода (центрирование)
+            for (int k = 0; k < (rows - i - 1) * 2; k++) {
+                System.out.print(" ");
+            }
+            
+            for (int j = 0; j < pascal[i].length; j++) {
+                System.out.printf("%4d", pascal[i][j]);
+            }
+            System.out.println();
+        }
+        
+        // Дополнительно: вывод информации о ступенчатости
+        System.out.println("\nДлины строк (ступенчатый массив):");
+        for (int i = 0; i < pascal.length; i++) {
+            System.out.println("Строка " + i + ": " + pascal[i].length + " элементов");
+        }
+    }
+    
+    // ==========================================
+    // ВСПОМОГАТЕЛЬНЫЙ МЕТОД: вывод матрицы
+    // ==========================================
+    public static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
