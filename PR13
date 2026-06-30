@@ -1,0 +1,82 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
+
+public class StudentManager {
+    public static void main(String[] args) {
+        // ==========================================
+        // 1. Создание списка (ArrayList) с именами студентов
+        // ==========================================
+        List<String> studentNames = new ArrayList<>();
+        studentNames.add("Анна");
+        studentNames.add("Иван");
+        studentNames.add("Мария");
+        studentNames.add("Петр");
+        studentNames.add("Анна"); // Повторяющееся имя
+
+        // ==========================================
+        // 2. Вывод списка на экран
+        // ==========================================
+        System.out.println("=== Список студентов (ArrayList) ===");
+        System.out.println("Размер списка: " + studentNames.size());
+        System.out.println("Элементы: " + studentNames);
+        System.out.println();
+
+        // ==========================================
+        // 3. Передача элементов в множество (HashSet) для удаления дубликатов
+        // ==========================================
+        Set<String> uniqueNames = new HashSet<>(studentNames);
+        
+        System.out.println("=== Множество уникальных имен (HashSet) ===");
+        System.out.println("Размер множества: " + uniqueNames.size());
+        System.out.println("Элементы: " + uniqueNames);
+        System.out.println("(Порядок элементов может отличаться от порядка в списке!)");
+        System.out.println();
+
+        // ==========================================
+        // 4. Создание словаря (HashMap) - имя -> балл
+        // ==========================================
+        Map<String, Integer> studentScores = new HashMap<>();
+        
+        // 5. Заполнение словаря оценками
+        studentScores.put("Анна", 95);
+        studentScores.put("Иван", 78);
+        studentScores.put("Мария", 88);
+        studentScores.put("Петр", 92);
+        // Обратите внимание: ключ "Анна" уже есть, поэтому значение обновится,
+        // но дубликат создан не будет.
+
+        System.out.println("=== Словарь оценок (HashMap) ===");
+        System.out.println("Количество записей: " + studentScores.size());
+        System.out.println("Содержимое: " + studentScores);
+        System.out.println();
+
+        // Дополнительный вывод в более читаемом формате
+        System.out.println("=== Детальный вывод оценок ===");
+        for (Map.Entry<String, Integer> entry : studentScores.entrySet()) {
+            System.out.println("Студент: " + entry.getKey() + ", Оценка: " + entry.getValue());
+        }
+        
+        // ==========================================
+        // Дополнительные демонстрации методов
+        // ==========================================
+        System.out.println("\n=== Дополнительные операции ===");
+        
+        // Проверка наличия элемента
+        System.out.println("Есть ли в списке 'Мария'? " + studentNames.contains("Мария"));
+        System.out.println("Есть ли в множестве 'Мария'? " + uniqueNames.contains("Мария"));
+        
+        // Получение значения по ключу из Map
+        String nameToFind = "Иван";
+        Integer score = studentScores.get(nameToFind);
+        System.out.println("Оценка студента " + nameToFind + ": " + 
+                          (score != null ? score : "Студент не найден"));
+        
+        // Удаление элемента из списка
+        studentNames.remove("Петр");
+        System.out.println("Список после удаления 'Петр': " + studentNames);
+    }
+}
