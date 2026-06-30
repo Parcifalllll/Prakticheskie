@@ -1,0 +1,109 @@
+/**
+ * Класс NumberTask выводит числа от 1 до 5 с задержкой 500 мс.
+ */
+class NumberTask implements Runnable {
+    @Override
+    public void run() {
+        // Получаем имя текущего потока для наглядности
+        String threadName = Thread.currentThread().getName();
+        
+        System.out.println("[" + threadName + "] Начинаю вывод чисел...");
+        
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("[" + threadName + "] Число: " + i);
+            
+            try {
+                // Задержка 500 мс (0.5 секунды)
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println("[" + threadName + "] Поток был прерван!");
+                Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
+                break;
+            }
+        }
+        
+        System.out.println("[" + threadName + "] Завершил вывод чисел.");
+    }
+}
+
+/**
+ * Класс LetterTask выводит буквы от 'A' до 'E' с задержкой 700 мс.
+ */
+class LetterTask implements Runnable {
+    @Override
+    public void run() {
+        // Получаем имя текущего потока для наглядности
+        String threadName = Thread.currentThread().getName();
+        
+        System.out.println("[" + threadName + "] Начинаю вывод букв...");
+        
+        for (char c = 'A'; c <= 'E'; c++) {
+            System.out.println("[" + threadName + "] Буква: " + c);
+            
+            try {
+                // Задержка 700 мс (0.7 секунды)
+                Thread.sleep(700);
+            } catch (InterruptedException e) {
+                System.out.println("[" + threadName + "] Поток был прерван!");
+                Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
+                break;
+            }
+        }
+        
+        System.out.println("[" + threadName + "] Завершил вывод букв.");
+    }
+}
+
+/**
+ * Главный класс приложения.
+ * Демонстрирует параллельное выполнение двух задач.
+ */
+public class ThreadPractice {
+    public static void main(String[] args) {
+        System.out.println("=== НАЧАЛО РАБОТЫ ПРОГРАММЫ ===");
+        System.out.println("Основной поток: " + Thread.currentThread().getName());
+        System.out.println();
+        
+        // ==========================================
+        // Создание задач (Runnable)
+        // ==========================================
+        NumberTask numberTask = new NumberTask();
+        LetterTask letterTask = new LetterTask();
+        
+        // ==========================================
+        // Создание потоков и передача им задач
+        // ==========================================
+        Thread numberThread = new Thread(numberTask, "Поток-Числа");
+        Thread letterThread = new Thread(letterTask, "Поток-Буквы");
+        
+        // ==========================================
+        // Запуск потоков
+        // ==========================================
+        System.out.println("Запускаю поток чисел...");
+        numberThread.start();
+        
+        System.out.println("Запускаю поток букв...");
+        letterThread.start();
+        
+        // ==========================================
+        // Ожидание завершения потоков (демонстрация join)
+        // ==========================================
+        try {
+            System.out.println("\nОсновной поток ожидает завершения дочерних потоков...");
+            
+            // Ожидаем завершения потока чисел
+            numberThread.join();
+            System.out.println("Поток чисел завершился.");
+            
+            // Ожидаем завершения потока букв
+            letterThread.join();
+            System.out.println("Поток букв завершился.");
+            
+        } catch (InterruptedException e) {
+            System.out.println("Основной поток был прерван во время ожидания!");
+            Thread.currentThread().interrupt();
+        }
+        
+        System.out.println("\n=== ВСЕ ПОТОКИ ЗАВЕРШИЛИ РАБОТУ ===");
+    }
+}
