@@ -1,0 +1,154 @@
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Практика №17: Хеш-таблицы и ассоциативные массивы
+ * Программа "Журнал успеваемости"
+ */
+public class GradeJournal {
+    public static void main(String[] args) {
+        System.out.println("=== ПРАКТИКА №17: ЖУРНАЛ УСПЕВАЕМОСТИ ===\n");
+        
+        // ==========================================
+        // 1. Создание коллекции HashMap<String, Integer>
+        // ==========================================
+        HashMap<String, Integer> journal = new HashMap<>();
+        
+        // ==========================================
+        // 2. Заполнение журнала данными (put)
+        // ==========================================
+        System.out.println("--- Заполнение журнала ---");
+        journal.put("Анна", 95);
+        journal.put("Иван", 78);
+        journal.put("Мария", 88);
+        journal.put("Петр", 92);
+        journal.put("Елена", 85);
+        
+        // Вывод всех записей
+        System.out.println("Журнал успеваемости:");
+        printJournal(journal);
+        System.out.println();
+        
+        // ==========================================
+        // 3. Получение оценки конкретного студента (get)
+        // ==========================================
+        System.out.println("--- Получение оценки студента ---");
+        String studentName = "Мария";
+        Integer grade = journal.get(studentName);
+        
+        if (grade != null) {
+            System.out.println("Студент " + studentName + " получил оценку: " + grade);
+        } else {
+            System.out.println("Студент " + studentName + " не найден в журнале");
+        }
+        System.out.println();
+        
+        // ==========================================
+        // 4. Проверка наличия студента (containsKey)
+        // ==========================================
+        System.out.println("--- Проверка наличия студента ---");
+        String nameToCheck = "Иван";
+        if (journal.containsKey(nameToCheck)) {
+            System.out.println("Студент " + nameToCheck + " присутствует в журнале");
+            System.out.println("Его оценка: " + journal.get(nameToCheck));
+        } else {
+            System.out.println("Студент " + nameToCheck + " отсутствует в журнале");
+        }
+        
+        String nameToCheck2 = "Сергей";
+        if (journal.containsKey(nameToCheck2)) {
+            System.out.println("Студент " + nameToCheck2 + " присутствует в журнале");
+        } else {
+            System.out.println("Студент " + nameToCheck2 + " отсутствует в журнале");
+        }
+        System.out.println();
+        
+        // ==========================================
+        // 5. Удаление студента (remove)
+        // ==========================================
+        System.out.println("--- Удаление студента ---");
+        String studentToRemove = "Петр";
+        Integer removedGrade = journal.remove(studentToRemove);
+        
+        if (removedGrade != null) {
+            System.out.println("Студент " + studentToRemove + " удален из журнала");
+            System.out.println("Его оценка была: " + removedGrade);
+        } else {
+            System.out.println("Студент " + studentToRemove + " не найден в журнале");
+        }
+        System.out.println();
+        
+        // Вывод обновленного журнала
+        System.out.println("Обновленный журнал успеваемости:");
+        printJournal(journal);
+        System.out.println();
+        
+        // ==========================================
+        // Дополнительные демонстрации
+        // ==========================================
+        System.out.println("--- Дополнительные операции ---");
+        
+        // Проверка размера
+        System.out.println("Количество студентов в журнале: " + journal.size());
+        
+        // Проверка на пустоту
+        System.out.println("Журнал пуст? " + journal.isEmpty());
+        
+        // Получение всех ключей
+        System.out.println("Список всех студентов: " + journal.keySet());
+        
+        // Получение всех значений
+        System.out.println("Список всех оценок: " + journal.values());
+        
+        // Проверка наличия значения (оценки)
+        boolean hasGrade80 = journal.containsValue(80);
+        System.out.println("Есть ли студент с оценкой 80? " + hasGrade80);
+        
+        boolean hasGrade88 = journal.containsValue(88);
+        System.out.println("Есть ли студент с оценкой 88? " + hasGrade88);
+        System.out.println();
+        
+        // ==========================================
+        // Демонстрация замены значения
+        // ==========================================
+        System.out.println("--- Замена оценки ---");
+        System.out.println("Текущая оценка Анны: " + journal.get("Анна"));
+        journal.put("Анна", 97);  // Перезапись значения
+        System.out.println("Новая оценка Анны: " + journal.get("Анна"));
+        System.out.println();
+        
+        // ==========================================
+        // Демонстрация: попытка добавить дубликат ключа
+        // ==========================================
+        System.out.println("--- Демонстрация: дубликат ключа ---");
+        System.out.println("Попытка добавить студента с уже существующим именем 'Анна'...");
+        journal.put("Анна", 100);  // Старое значение будет перезаписано
+        System.out.println("Оценка Анны теперь: " + journal.get("Анна"));
+        System.out.println("Количество записей осталось: " + journal.size() + 
+                          " (дубликат не создан!)");
+    }
+    
+    /**
+     * Вспомогательный метод для красивого вывода журнала
+     */
+    public static void printJournal(HashMap<String, Integer> journal) {
+        if (journal.isEmpty()) {
+            System.out.println("Журнал пуст.");
+            return;
+        }
+        
+        System.out.println("┌─────────────────────────────┐");
+        System.out.println("│ Студент          │ Оценка   │");
+        System.out.println("├─────────────────────────────┤");
+        
+        for (Map.Entry<String, Integer> entry : journal.entrySet()) {
+            // Форматирование для выравнивания
+            String name = entry.getKey();
+            Integer grade = entry.getValue();
+            System.out.printf("│ %-16s │ %-8d │%n", name, grade);
+        }
+        
+        System.out.println("└─────────────────────────────┘");
+        System.out.println("Всего студентов: " + journal.size());
+    }
+}
